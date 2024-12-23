@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Music Cult | Радио</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" 
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>AI Music Cult Radio</h1>
+    <p>Погрузись в наши треки — без границ и предрассудков</p>
+  </header>
+
+  <section class="radio-container">
+    <div class="player">
+      <!-- Аудиоэлемент -->
+      <audio id="audioPlayer"></audio>
+      <!-- Название трека -->
+      <div class="track-info">
+        <span id="currentTrackTitle">Track Title</span>
+      </div>
+      <!-- Кнопки управления -->
+      <div class="controls">
+        <button id="prevBtn" class="player-btn">Prev</button>
+        <button id="playBtn" class="player-btn">Play</button>
+        <button id="nextBtn" class="player-btn">Next</button>
+      </div>
+      <!-- Прогресс-бар (по желанию) -->
+      <div class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 AI Music Cult. Все права сохранены.</p>
+    <p><a href="index.html">Вернуться на главную</a></p>
+  </footer>
+
+  <script src="js/radio.js"></script>
+</body>
+</html>
