@@ -54,13 +54,10 @@ window.addEventListener("DOMContentLoaded", () => {
   gradient.addColorStop(0, "rgba(255, 54, 54, 0.4)");
   gradient.addColorStop(1, "rgba(255, 54, 54, 0)");
 
-  // Пример данных (Views по неделям)
+  // Пример данных (количество «использований» за 4 недели)
   const labels = ["Неделя 1", "Неделя 2", "Неделя 3", "Неделя 4"];
-  const dataViews = [10_000_000, 12_000_000, 14_200_000, 16_500_000];
-  // Можно вкинуть побольше точек
-
-  // Можно добавить вторую линию (лайки):
-  const dataLikes = [500_000, 700_000, 900_000, 1_200_000];
+  const dataUsage = [200, 400, 700, 1200]; 
+  // Сюда подставь любые нужные числа
 
   new Chart(ctx, {
     type: "line",
@@ -68,26 +65,16 @@ window.addEventListener("DOMContentLoaded", () => {
       labels,
       datasets: [
         {
-          label: "TikTok Views",
-          data: dataViews,
+          label: "TikTok uses over time",   // Переименовали
+          data: dataUsage,                 // Убрали Likes
           borderColor: "#ff3636",
           backgroundColor: gradient,
           pointRadius: 4,
           pointBackgroundColor: "#ff3636",
           tension: 0.3,
-          fill: true
+          fill: true,
         },
-        {
-          label: "TikTok Likes",
-          data: dataLikes,
-          borderColor: "#ffdd00",
-          backgroundColor: "rgba(255,221,0,0.2)",
-          pointRadius: 4,
-          pointBackgroundColor: "#ffdd00",
-          tension: 0.3,
-          fill: true
-        }
-      ]
+      ],
     },
     options: {
       responsive: true,
@@ -114,7 +101,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
 /**************************************************************
  * 3. Модалки ("Вступить" и "Донат")
  **************************************************************/
