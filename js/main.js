@@ -1,215 +1,249 @@
 /**************************************************************
- * 1. Real-time Counters
+ * 1. Счётчики (Views, Likes) with slight randomness
  **************************************************************/
-let totalTracks = 1287;
-let totalPlays = 8943265;
-let lastTime = Date.now();
+let tiktokViews = 43060000;
+let lastTimeTV = Date.now();
+const VIEWS_PER_DAY = 400000; // ~300-400k
 
-const TRACKS_PER_DAY = 3;  // New AI tracks per day
-const PLAYS_PER_SECOND = 4; // Average plays per second
+let tiktokLikes = 2130000;
+let lastTimeTL = Date.now();
+const LIKES_PER_DAY = 25000;  // ~20-30k
 
-function updateCounters() {
+function updateTiktokViews() {
   const now = Date.now();
-  const elapsed = (now - lastTime) / 1000; // Convert to seconds
-  lastTime = now;
+  const elapsed = now - lastTimeTV;
+  lastTimeTV = now;
+  const msInDay = 86400000;
 
-  // Update tracks (slower)
-  totalTracks += (TRACKS_PER_DAY / 86400) * elapsed;
-  
-  // Update plays with random acceleration
-  const acceleration = 1 + Math.random() * 0.5; // 1.0 to 1.5
-  totalPlays += PLAYS_PER_SECOND * elapsed * acceleration;
+  // Random factor (0.8 to 1.2)
+  const randomFactor = 0.8 + Math.random() * 0.4;
+  const inc = (VIEWS_PER_DAY * randomFactor / msInDay) * elapsed;
+  tiktokViews += inc;
 
-  // Update DOM
-  document.getElementById("total-tracks").innerText = 
-    Math.floor(totalTracks).toLocaleString();
-  document.getElementById("total-plays").innerText = 
-    Math.floor(totalPlays).toLocaleString();
+  const elem = document.getElementById("tiktok-views");
+  if (elem) {
+    elem.innerText = Math.floor(tiktokViews).toLocaleString();
+  }
 }
 
-// Update every 100ms for smooth animation
-setInterval(updateCounters, 100);
+function updateTiktokLikes() {
+  const now = Date.now();
+  const elapsed = now - lastTimeTL;
+  lastTimeTL = now;
+  const msInDay = 86400000;
+
+  const randomFactor = 0.8 + Math.random() * 0.4;
+  const inc = (LIKES_PER_DAY * randomFactor / msInDay) * elapsed;
+  tiktokLikes += inc;
+
+  const elem = document.getElementById("tiktok-likes");
+  if (elem) {
+    elem.innerText = Math.floor(tiktokLikes).toLocaleString();
+  }
+}
+
+setInterval(updateTiktokViews, 1000);
+setInterval(updateTiktokLikes, 1000);
 
 /**************************************************************
- * 2. Chart Initialization
+ * 2. Chart.js: "TikTok Uses Over Time"
  **************************************************************/
 window.addEventListener("DOMContentLoaded", () => {
-  const ctx = document.getElementById("tracksChart").getContext("2d");
-  
-  // Create gradient
-  const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-  gradient.addColorStop(0, "rgba(255, 54, 54, 0.4)");
-  gradient.addColorStop(1, "rgba(255, 54, 54, 0)");
-
-  // Generate realistic growth data
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-  const trackData = [423, 612, 798, 945, 1124, 1287];
-
-  new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: months,
-      datasets: [{
-        label: "AI Tracks Created",
-        data: trackData,
-        borderColor: "#ff3636",
-        backgroundColor: gradient,
-        pointBackgroundColor: "#ff3636",
-        tension: 0.4,
-        fill: true
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          grid: { color: "rgba(255,255,255,0.1)" },
-          ticks: { color: "#fff" }
-        },
-        y: {
-          grid: { color: "rgba(255,255,255,0.1)" },
-          ticks: { color: "#fff" }
-        }
-      },
-      plugins: {
-        legend: {
-          labels: { color: "#fff", font: { size: 14 } }
-        },
-        tooltip: {
-          backgroundColor: "rgba(0,0,0,0.8)",
-          titleFont: { size: 16 },
-          bodyFont: { size: 14 }
-        }
-      }
-    }
-  });
-});
-
-/**************************************************************
- * 3. Countdown Timer & FOMO Elements
- **************************************************************/
-function updateTimer() {
-  const now = new Date();
-  const deadline = new Date(now.getTime() + 72 * 60 * 60 * 1000); // 72 hours from now
-  const timeLeft = deadline - now;
-
-  const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-  const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-  document.getElementById("timer").innerHTML = 
-    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-}
-
-setInterval(updateTimer, 1000);
-
-// FOMO Spots Counter
-let spotsLeft = 288;
-function updateSpots() {
-  if (Math.random() < 0.3 && spotsLeft > 50) { // 30% chance to decrease
-    spotsLeft -= Math.floor(Math.random() * 3) + 1;
-    document.getElementById("spots-left").innerText = spotsLeft;
-  }
-}
-
-setInterval(updateSpots, 5000);
-
-/**************************************************************
- * 4. Payment & Crypto Integration
- **************************************************************/
-// Payment Processing
-document.getElementById("prophetBtn")?.addEventListener("click", () => {
-  window.location.href = "https://buy.stripe.com/your-prophet-tier-link";
-});
-
-document.getElementById("oracleBtn")?.addEventListener("click", () => {
-  window.location.href = "https://buy.stripe.com/your-oracle-tier-link";
-});
-
-// Copy Crypto Addresses
-document.querySelectorAll(".crypto-address").forEach(address => {
-  address.addEventListener("click", function() {
-    navigator.clipboard.writeText(this.innerText);
+  const canvas = document.getElementById("analyticsChart");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
     
-    const original = this.innerText;
-    this.innerText = "Copied!";
-    setTimeout(() => {
-      this.innerText = original;
-    }, 1000);
-  });
+    // Gradient
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, "rgba(255, 54, 54, 0.4)");
+    gradient.addColorStop(1, "rgba(255, 54, 54, 0)");
+
+    // Example data
+    const labels = ["Неделя 1", "Неделя 2", "Неделя 3", "Неделя 4"];
+    const dataUsage = [200, 400, 700, 1200];
+
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "TikTok uses over time",
+            data: dataUsage,
+            borderColor: "#ff3636",
+            backgroundColor: gradient,
+            pointRadius: 4,
+            pointBackgroundColor: "#ff3636",
+            tension: 0.3,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            ticks: { color: "#fff" },
+            grid: { display: false }
+          },
+          y: {
+            ticks: { color: "#fff" },
+            grid: { color: "rgba(255,255,255,0.1)" }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: { color: "#fff", font: { size: 14 } }
+          },
+          tooltip: {
+            titleFont: { size: 14 },
+            bodyFont: { size: 12 },
+            backgroundColor: "rgba(0,0,0,0.8)"
+          }
+        }
+      }
+    });
+  }
+
+  // Also load the first track for the radio if we’re on radio.html:
+  loadTrack(0);
 });
 
 /**************************************************************
- * 5. Interactive Elements & Animation
+ * 3. Modals: "Вступить" & "Донат"
  **************************************************************/
-document.querySelectorAll(".stat-card").forEach(card => {
-  card.addEventListener("mouseover", function() {
-    this.querySelector(".stat-growth").style.opacity = "1";
-  });
-});
-
-// Add "hurry" animation to timer when under certain thresholds
-function checkUrgency() {
-  const timer = document.getElementById("timer");
-  if (!timer) return;
-  
-  const [hours] = timer.innerText.split(":");
-  
-  if (parseInt(hours) < 24) {
-    timer.classList.add("urgent");
-  }
-}
-
-setInterval(checkUrgency, 60000);
-
-/**************************************************************
- * 6. Members Counter
- **************************************************************/
-let currentMembers = 8712;
-const maxMembers = 9000;
-
-function updateMembers() {
-  if (currentMembers < maxMembers) {
-    const joinRate = Math.random() * 3;
-    if (Math.random() < 0.4) { // 40% chance to increase
-      currentMembers += joinRate;
-      if (currentMembers > maxMembers) currentMembers = maxMembers;
-      
-      const memberCounter = document.getElementById("member-count");
-      if (memberCounter) {
-        memberCounter.innerText = Math.floor(currentMembers).toLocaleString();
-      }
-      
-      const statGrowth = document.querySelector(".stat-growth");
-      if (statGrowth) {
-        const percentFull = ((currentMembers / maxMembers) * 100).toFixed(1);
-        statGrowth.innerText = `${percentFull}% Spots Filled`;
-      }
-    }
-  }
-}
-
-setInterval(updateMembers, 3000);
-
-/**************************************************************
- * 7. Modal Handling
- **************************************************************/
+const joinCultBtn = document.getElementById("joinCultBtn");
 const joinModal = document.getElementById("joinModal");
 const modalClose = document.getElementById("modalClose");
-const joinCultBtn = document.getElementById("joinCultBtn");
 
-if (joinCultBtn && joinModal && modalClose) {
+const donateBtn = document.getElementById("donateBtn");
+const donateModal = document.getElementById("donateModal");
+const donateClose = document.getElementById("donateClose");
+
+if (joinCultBtn) {
   joinCultBtn.addEventListener("click", () => {
-    joinModal.style.display = "flex";
+    joinModal.style.display = "block";
   });
-
+}
+if (modalClose) {
   modalClose.addEventListener("click", () => {
     joinModal.style.display = "none";
   });
+}
+if (donateBtn) {
+  donateBtn.addEventListener("click", () => {
+    // Hide "Вступить" modal
+    if (joinModal) joinModal.style.display = "none";
+    // Show "Донат" modal
+    donateModal.style.display = "block";
+  });
+}
+if (donateClose) {
+  donateClose.addEventListener("click", () => {
+    donateModal.style.display = "none";
+  });
+}
 
-  window.addEventListener("click", (e) => {
-    if (e.target === joinModal) {
-      joinModal.style.display = "none";
+// Click outside the modal
+window.addEventListener("click", (e) => {
+  if (e.target === joinModal) {
+    joinModal.style.display = "none";
+  }
+  if (e.target === donateModal) {
+    donateModal.style.display = "none";
+  }
+});
+
+// Subscription & Follow
+const subscribeBtn = document.getElementById("subscribeBtn");
+if (subscribeBtn) {
+  subscribeBtn.addEventListener("click", () => {
+    // Example PayPal subscription link
+    window.open("https://www.paypal.com/.../YOUR_SUBSCRIPTION_LINK", "_blank");
+  });
+}
+
+const followBtn = document.getElementById("followBtn");
+if (followBtn) {
+  followBtn.addEventListener("click", () => {
+    window.open("https://www.tiktok.com/@yourprofile", "_blank");
+  });
+}
+
+/**************************************************************
+ * 4. Radio Player Logic
+ **************************************************************/
+// We'll assume the elements exist only on radio.html
+const playlist = [
+  { title: "Мой супертрек #1", src: "audio/track1.mp3" },
+  { title: "Мой супертрек #2", src: "audio/track2.mp3" }
+];
+
+let currentTrackIndex = 0;
+const audio = document.getElementById("audioPlayer");
+const playBtn = document.getElementById("playBtn");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const trackTitle = document.getElementById("currentTrackTitle");
+const progressBar = document.getElementById("progressBar");
+
+function loadTrack(index) {
+  if (!audio) return; // Means we're not on radio.html
+  currentTrackIndex = index;
+  audio.src = playlist[index].src;
+  if (trackTitle) trackTitle.textContent = playlist[index].title;
+}
+
+function playTrack() {
+  if (audio) {
+    audio.play();
+    if (playBtn) playBtn.textContent = "Pause";
+  }
+}
+
+function pauseTrack() {
+  if (audio) {
+    audio.pause();
+    if (playBtn) playBtn.textContent = "Play";
+  }
+}
+
+if (playBtn) {
+  playBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      playTrack();
+    } else {
+      pauseTrack();
     }
+  });
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener("click", () => {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+    playTrack();
+  });
+}
+
+if (prevBtn) {
+  prevBtn.addEventListener("click", () => {
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    loadTrack(currentTrackIndex);
+    playTrack();
+  });
+}
+
+// Auto move to next track
+if (audio) {
+  audio.addEventListener("ended", () => {
+    if (nextBtn) nextBtn.click();
+  });
+
+  // Update progress bar
+  audio.addEventListener("timeupdate", () => {
+    if (!audio.duration || !progressBar) return;
+    const progressPercent = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = progressPercent + "%";
   });
 }
