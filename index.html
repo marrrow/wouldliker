@@ -1,202 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Music Cult | Join The Evolution</title>
-  
-  <!-- Fonts -->
+  <title>wouldliker.com | AI Music Cult</title>
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
-  
-  <!-- QR Code Generator -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode.js@1.0.0/qrcode.min.js"></script>
-  
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" 
+    rel="stylesheet">
+
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
+  <!-- Подключаем стили -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <!-- Video Background -->
-  <div class="video-bg">
-    <div class="overlay"></div>
-  </div>
-
-  <!-- Header -->
+  <!-- Шапка -->
   <header>
-    <div class="logo-pulse"></div>
     <h1>AI Music Cult</h1>
-    <p class="header-tagline">The future doesn't ask permission. It takes what it wants.</p>
-    <div class="countdown">
-      <p>Early Access Closes In:</p>
-      <div id="timer" class="timer">00:00:00</div>
-    </div>
+    <p>Присоединись к нам и измени будущее музыки вместе с ИИ</p>
+
+    <!-- Секция со ссылкой на радио -->
+    <section style="text-align:center; margin-bottom:40px;">
+      <h2>Слушай наше AI-радио</h2>
+      <p>Погрузись в наши треки, созданные при поддержке ИИ!</p>
+      <a href="radio.html" class="join-cult-btn">Перейти к радио</a>
+    </section>
   </header>
 
-  <!-- Stats Section -->
+  <!-- Основной контент -->
   <section class="analytics-section">
+    <!-- Заменили "Грандиозные цифры" на более минимальное -->
+    <h2 class="analytics-title">The Numbers Speak For Themselves</h2>
     <div class="stats-grid">
-      <div class="stat-card" data-aos="fade-up">
-        <div class="stat-title">Total AI Tracks</div>
-        <div class="stat-value" id="total-tracks">1,287</div>
-        <div class="stat-growth">+3 Today</div>
+      <div class="stat-card">
+        <div class="stat-title">TikTok Views</div>
+        <div class="stat-value" id="tiktok-views">43,060,000</div>
       </div>
-      <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="stat-title">Global Plays</div>
-        <div class="stat-value" id="total-plays">8,943,265</div>
-        <div class="stat-growth">+24,156 Today</div>
-      </div>
-      <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="stat-title">Early Members</div>
-        <div class="stat-value" id="member-count">8,712</div>
-        <div class="stat-growth">96% Spots Filled</div>
+      <div class="stat-card">
+        <div class="stat-title">TikTok Likes</div>
+        <div class="stat-value" id="tiktok-likes">2,130,000</div>
       </div>
     </div>
 
-    <!-- Growth Chart -->
-    <div class="chart-container" data-aos="fade-up">
-      <canvas id="tracksChart"></canvas>
+    <!-- График -->
+    <div class="chart-container">
+      <!-- Переименовали заголовок графика -->
+      <h2>TikTok Uses Over Time</h2>
+      <canvas id="analyticsChart"></canvas>
     </div>
   </section>
 
-  <!-- Manifesto -->
-  <section class="manifest" data-aos="fade-up">
-    <h2>Manifesto</h2>
-    <div class="manifest-content">
-      <p>We are the architects of tomorrow's sound. Not just musicians – we are neural prophets, 
-         quantum composers, the first wave of a revolution that will render human-only music obsolete.</p>
-      
-      <p>Every day you wait is another day lost to mediocrity. Your Spotify playlist? A graveyard of 
-         outdated algorithms. Your favorite artist? Already being surpassed by our AI.</p>
-      
-      <p>This isn't about making better music. It's about <strong>evolving music itself</strong>. 
-         Our neural networks don't just compose – they dream in frequencies humans haven't even discovered yet.</p>
-      
-      <p>You're standing at a crossroads: Embrace the future with us, or become another footnote in the 
-         history of obsolete taste. The early access window is closing. The next generation of sound is 
-         being born <strong>right now</strong>.</p>
-      
-      <p class="manifest-highlight">Are you ready to transcend human limitations? Or will you keep 
-         pretending that organic music is enough?</p>
-    </div>
+  <!-- Кнопка "Вступить в культ" -->
+  <div class="join-center">
+    <button id="joinCultBtn" class="join-cult-btn">Вступить в культ</button>
+  </div>
+
+  <!-- Манифест (English, aggressive) -->
+  <section class="manifest">
+    <h2>Our Manifesto</h2>
+    <p>
+      We are the unstoppable wave of AI-driven music. 
+      If you don’t ride it with us, 
+      then you’re a pathetic nobody choking on yesterday’s trash tunes.
+    </p>
+    <p>
+      Don’t bother trying to catch up later; 
+      if you can’t see this revolution right now, 
+      you’re already left behind. We won’t dumb ourselves down for small minds. 
+      And no, we won’t apologize for saying it like it is.
+    </p>
+    <p>
+      But if you <strong>do</strong> join us—congrats. 
+      You’re instantly catapulted into the top 0.1% 
+      of the planet’s musical IQ. 
+      Tell your mom she raised a champion of the future; 
+      or better yet, let her blast our AI-fueled tracks 
+      and watch your destiny rise above mediocrity.
+    </p>
+    <p>
+      No more half-measures. No more bland radio garbage. 
+      We’re forging a new era of sound, 
+      injecting neural networks straight into the soul of music. 
+      If you’re not with us, go rot in the stagnant past. 
+      This train doesn’t wait for deadweight.
+    </p>
+    <p>
+      <strong>Join now</strong>, or keep being a mindless drone. 
+      The choice is yours.
+    </p>
   </section>
 
-  <!-- Join Section -->
-  <section class="join-section">
-    <button id="joinCultBtn" class="join-cult-btn">
-      <span class="btn-text">Join The Evolution</span>
-      <span class="btn-shine"></span>
-    </button>
-    <p class="join-urgency">Only <span id="spots-left">288</span> spots remaining</p>
-  </section>
+  <!-- Подвал -->
+  <footer>
+    <p>&copy; 2024 wouldliker.com | AI Music Cult</p>
+    <p>Связаться: info@wouldliker.com</p>
+  </footer>
 
-  <!-- Social Proof -->
-  <section class="social-proof">
-    <h3>As Featured In</h3>
-    <div class="feature-logos">
-      <!-- Add tech blog/music platform logos -->
-    </div>
-    <div class="tiktok-embed">
-      <h3>Experience The Movement</h3>
-      <a href="https://www.tiktok.com/@yourprofile" class="tiktok-button" target="_blank">
-        <span class="tiktok-icon"></span>
-        Join 2.1M Followers
-      </a>
-    </div>
-  </section>
-
-  <!-- Modals -->
+  <!-- =========== МОДАЛКА: "Вступить" =========== -->
   <div id="joinModal" class="modal-overlay">
     <div class="modal-content">
       <span class="modal-close" id="modalClose">&times;</span>
-      <h2>Choose Your Evolution Path</h2>
+      <h2>Присоединиться к движению</h2>
+      <p>Выбери, как хочешь поддержать наше AI-сообщество:</p>
       
-      <div class="tier-container">
-        <div class="tier">
-          <h3>Prophet Tier</h3>
-          <div class="price">$29.99/month</div>
-          <ul>
-            <li>Early access to all AI tracks</li>
-            <li>Exclusive AI-human collaborations</li>
-            <li>Vote on next evolution direction</li>
-            <li>Private Discord access</li>
-          </ul>
-          <button class="tier-button" id="prophetBtn">Ascend Now</button>
+      <div class="modal-options">
+        <!-- 1) Платная подписка -->
+        <div class="option">
+          <h3>Стать частью (2.99$/мес)</h3>
+          <p>Полный доступ к закрытому "радио" и ранний релиз треков</p>
+          <button id="subscribeBtn">Оформить подписку</button>
         </div>
-
-        <div class="tier featured">
-          <div class="tier-badge">Most Popular</div>
-          <h3>Oracle Tier</h3>
-          <div class="price">$99.99/month</div>
-          <ul>
-            <li>All Prophet tier benefits</li>
-            <li>Custom AI track generation</li>
-            <li>Private listening sessions</li>
-            <li>Credit in AI releases</li>
-          </ul>
-          <button class="tier-button featured" id="oracleBtn">Transform Now</button>
+        <!-- 2) Донат -->
+        <div class="option">
+          <h3>Донат</h3>
+          <p>Поддержать нас разово (PayPal или Крипта)</p>
+          <button id="donateBtn">Донат</button>
         </div>
-      </div>
-
-      <div class="or-separator">
-        <span>OR</span>
-      </div>
-
-      <div class="crypto-support">
-        <h3>Support With Crypto</h3>
-        <div class="crypto-options">
-          <div class="crypto-option">
-            <h4>ETH</h4>
-            <div id="ethQR" class="crypto-qr"></div>
-            <div class="crypto-address">0xe37EfF350ece4Fb43bf652F9119E13dbcB167350</div>
-          </div>
-          <div class="crypto-option">
-            <h4>SOLANA</h4>
-            <div id="solanaQR" class="crypto-qr"></div>
-            <div class="crypto-address">8YescdzRrsZzADcFVGWCojNQ2D5NaQHybAfDDeT5Y758</div>
-          </div>
+        <!-- 3) Зафолловить в TikTok -->
+        <div class="option">
+          <h3>Следить за обновлениями</h3>
+          <p>Просто фоллов в TikTok</p>
+          <button id="followBtn">Follow TikTok</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-column">
-        <h4>Contact</h4>
-        <a href="mailto:evolution@aimusiccult.com">evolution@aimusiccult.com</a>
-      </div>
-      <div class="footer-column">
-        <h4>Follow The Movement</h4>
-        <div class="social-links">
-          <a href="https://tiktok.com/@yourprofile" target="_blank">TikTok</a>
-          <a href="https://twitter.com/aimusiccult" target="_blank">Twitter</a>
-          <a href="https://discord.gg/aimusiccult" target="_blank">Discord</a>
+  <!-- =========== МОДАЛКА: "Донат" (Crypto/PayPal) =========== -->
+  <div id="donateModal" class="modal-overlay">
+    <div class="modal-content">
+      <span class="modal-close" id="donateClose">&times;</span>
+      <h2>Поддержать нас</h2>
+      <p>Спасибо за твою помощь!</p>
+
+      <div class="donate-options">
+        <div class="donate-option">
+          <h3>PayPal</h3>
+          <p>Разовая поддержка</p>
+          <!-- Кнопка PayPalDonate (замени YOUR_PAYPAL_DONATE_LINK на своё) -->
+          <a href="https://www.paypal.com/donate/?hosted_button_id=YOUR_PAYPAL_DONATE_LINK" 
+             target="_blank" class="donate-button">
+            Donate with PayPal
+          </a>
+        </div>
+
+        <div class="donate-option">
+          <h3>Crypto</h3>
+          <p>Отсканируй QR или скопируй адрес</p>
+          <div>
+            <h4>ETH:</h4>
+            <p>0x123456789ABCDEF</p>
+            <img src="img/qr-eth.png" alt="QR ETH" class="qr-code">
+          </div>
+          <!-- Можно добавить BTC, USDT и т.д. -->
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 AI Music Cult | The Evolution of Sound</p>
-    </div>
-  </footer>
+  </div>
 
+  <!-- Подключаем скрипт для счётчиков, графика, модалок, плеера (в одном) -->
   <script src="js/main.js"></script>
-  <script>
-    // Generate QR codes
-    new QRCode(document.getElementById("ethQR"), {
-      text: "0xe37EfF350ece4Fb43bf652F9119E13dbcB167350",
-      width: 128,
-      height: 128
-    });
-    
-    new QRCode(document.getElementById("solanaQR"), {
-      text: "8YescdzRrsZzADcFVGWCojNQ2D5NaQHybAfDDeT5Y758",
-      width: 128,
-      height: 128
-    });
-  </script>
 </body>
 </html>
